@@ -9,7 +9,7 @@ public class CursorManager : MonoBehaviour
         instance = this;
     }
 
-    private Transform target;
+    public Player.PlayerController target;
 
     public Transform crosshair;
 
@@ -17,11 +17,17 @@ public class CursorManager : MonoBehaviour
 
     private void Start() {
         Cursor.visible = false;
-        target = GetComponent<Player.CameraMovement>().target.transform;
         inputs = InputManager.instance;
     }
 
     private void Update() {
+        if(target._run){
+            crosshair.gameObject.SetActive(false);
+            return;
+        }
+
+        crosshair.gameObject.SetActive(true);
+
         crosshair.transform.position = Input.mousePosition;
         crosshair.eulerAngles += Vector3.forward * 32f * Time.deltaTime;
 
