@@ -20,12 +20,10 @@ namespace Player
         private Animator _anim;
         private CharacterController cc;
         private InputManager inputs;
-        private CursorManager cursor;
         #endregion
 
         private void Start() {
             inputs = InputManager.instance;
-            cursor = CursorManager.instance;
             cc = GetComponent<CharacterController>();
             _anim = GetComponent<Animator>();
         }
@@ -74,8 +72,6 @@ namespace Player
             movement = (Vector3.forward * inputs.v) + (Vector3.right * inputs.h);
 
             cc.Move(movement.normalized * playerSpeed * Time.fixedDeltaTime);
-
-            cursor.RotateCursor(this.transform.position);
         }
 
         void FixedUpdate(){
