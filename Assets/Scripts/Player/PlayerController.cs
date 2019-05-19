@@ -71,7 +71,7 @@ namespace Player
             Vector3 movement;
             movement = (Vector3.forward * inputs.v) + (Vector3.right * inputs.h);
 
-            cc.Move(movement.normalized * playerSpeed * Time.fixedDeltaTime);
+            cc.SimpleMove(movement.normalized * playerSpeed );
         }
 
         void FixedUpdate(){
