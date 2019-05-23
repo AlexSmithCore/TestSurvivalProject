@@ -31,7 +31,9 @@ public class CursorManager : MonoBehaviour
         crosshair.transform.position = Input.mousePosition;
         crosshair.eulerAngles += Vector3.forward * 32f * Time.deltaTime;
 
-        float inputFactor = (new Vector3(inputs.h,inputs.v,0)).magnitude / 3;
+        float inputFactor = (new Vector3(inputs.h,inputs.v,0)).magnitude / 2;
         crosshair.localScale = new Vector3(1 + inputFactor,1 + inputFactor,0);
     }
 }
+
+

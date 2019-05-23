@@ -33,9 +33,12 @@ namespace Player
         }
 
         private void SetPlayerValues(){
-            _run = Input.GetKey(KeyCode.LeftShift);
-            _anim.SetBool("Run", _run);
-            playerSpeed = SpeedChanger();
+            float inputsMagn = new Vector2(inputs.h,inputs.v).magnitude;
+            if(inputsMagn > 0){
+                _run = Input.GetKey(KeyCode.LeftShift);
+                _anim.SetBool("Run", _run);
+                playerSpeed = SpeedChanger();
+            }
 
             // Расчитываем куда повернуть аниацию относительно клавиш на клавиатуре.
             float calcVertical = inputs.v * Mathf.Cos(transform.eulerAngles.y * Mathf.PI / 180)
@@ -71,7 +74,7 @@ namespace Player
             Vector3 movement;
             movement = (Vector3.forward * inputs.v) + (Vector3.right * inputs.h);
 
-            cc.SimpleMove(movement.normalized * playerSpeed );
+            cc.SimpleMove(movement.normalized * playerSpeed);
         }
 
         void FixedUpdate(){
