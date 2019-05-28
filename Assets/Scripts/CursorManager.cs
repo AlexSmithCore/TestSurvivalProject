@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class CursorManager : MonoBehaviour
@@ -11,9 +13,12 @@ public class CursorManager : MonoBehaviour
 
     public Player.PlayerController target;
 
-    public Transform crosshair;
+    public Image crosshair;
+    public Color cursorAlpha;
 
     private InputManager inputs;
+
+    private float alphaTo;
 
     private void Start() {
         Cursor.visible = false;
@@ -21,18 +26,25 @@ public class CursorManager : MonoBehaviour
     }
 
     private void Update() {
+        crosshair.gameObject.SetActive(!UIManager.instance.pause);
+
+        cursorAlpha = crosshair.color;
+
+        cursorAlpha.a = LerpValue.SmoothRealtime(cursorAlpha.a, alphaTo, 12f);
+        crosshair.color = cursorAlpha;
+
         if(target._run){
-            crosshair.gameObject.SetActive(false);
+            alphaTo = 0f;
             return;
+        } else {
+            alphaTo = 1f;
         }
 
-        crosshair.gameObject.SetActive(true);
-
         crosshair.transform.position = Input.mousePosition;
-        crosshair.eulerAngles += Vector3.forward * 32f * Time.deltaTime;
+        crosshair.transform.eulerAngles += Vector3.forward * 32f * Time.deltaTime;
 
         float inputFactor = (new Vector3(inputs.h,inputs.v,0)).magnitude / 2;
-        crosshair.localScale = new Vector3(1 + inputFactor,1 + inputFactor,0);
+        crosshair.transform.localScale = new Vector3(1 + inputFactor,1 + inputFactor,0);
     }
 }
 

@@ -37,6 +37,10 @@ namespace Player{
 				return;
 			}
 
+			if(UIManager.instance.pause){
+                return;
+            }
+
 			HandleCamera();
 		}
 

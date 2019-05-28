@@ -15,9 +15,6 @@ public class DayCycleSystem : MonoBehaviour
     public float time;
     [Space]
     public Light sun;
-    public Light moon;
-
-    public Light playerLight;
 
     public GameTime gameTime;
 
@@ -47,16 +44,10 @@ public class DayCycleSystem : MonoBehaviour
         gameTime.hour = timeFactor / 60;
         gameTime.minute = timeFactor % 60;
 
-
         float intensityFactor = intensity.Evaluate(time);
         sun.intensity = intensityFactor;
         RenderSettings.ambientIntensity = intensityFactor;
         sun.color = sunColors.Evaluate(time);
-        if(gameTime.hour > 18 || gameTime.hour < 4){
-            playerLight.enabled = true;
-        } else {
-            playerLight.enabled = false;
-        }
 
         string h;
         string m;

@@ -29,6 +29,9 @@ namespace Player
         }
 
         private void Update(){
+            if(UIManager.instance.pause){
+                return;
+            }
             SetPlayerValues();
         }
 
@@ -78,6 +81,9 @@ namespace Player
         }
 
         void FixedUpdate(){
+            if(UIManager.instance.pause){
+                return;
+            }
             RotatePlayer();
         }
 
